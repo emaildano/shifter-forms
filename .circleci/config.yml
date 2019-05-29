@@ -1,0 +1,65 @@
+---
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.3-cli
+
+    working_directory: ~/shifter-forms
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - vendor-cache-{{ checksum "composer.lock" }}
+      - run:
+          command: composer install
+      - save_cache:
+          key: vendor-cache-{{ checksum "composer.lock" }}
+          paths:
+            - ~/shifter-forms/vendor
+      - run:
+          command: composer cs-fix
+      - run:
+          command: composer cs-lint
+
+  release:
+    docker:
+      - image: circleci/golang:latest
+    working_directory: ~/shifter-forms
+    steps:
+      - checkout
+      - run: go get -u github.com/tcnksm/ghr
+      - run:
+          name: tag release
+          command: |
+            if [ "${CIRCLE_TAG-NONE}" != "NONE" ]; then
+              make pkg
+              ghr -v
+              ghr -replace ${CIRCLE_TAG} pkg/
+            else
+              # create basename archive
+              mkdir pkg
+              tar -cvzf pkg/shifter-forms.${CIRCLE_BRANCH##*/}.tgz -T files
+              echo skipped
+            fi
+      - store_artifacts:
+          path: ~/shifter-forms/pkg
+          destination: pkg
+
+workflows:
+  version: 2
+  build-and-release:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+      - release:
+          requires:
+            - build
+          filters:
+          #   branches:
+          #     only: master
+            tags:
+              only: /.*/
