@@ -162,8 +162,6 @@ class Shifter_Forms {
 		// Global Scripts and Styles.
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_global, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_global, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_global, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_global, 'enqueue_scripts' );
 	}
 
 	/**
@@ -184,8 +182,6 @@ class Shifter_Forms {
 		$this->loader->add_action( 'init', $plugin_admin, 'register_shifter_forms_content_type' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_form_meta_boxes' );
 		$this->loader->add_action( 'save_post_shifter_forms', $plugin_admin, 'save_form' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_admin_scripts_and_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_admin, 'enqueue_public_scripts_and_styles' );
 		$this->loader->add_action( 'wp_head', $plugin_admin, 'shifter_forms_output' );
 		$this->loader->add_filter( 'wpcf7_load_js', $plugin_admin, '__return_false' );
 

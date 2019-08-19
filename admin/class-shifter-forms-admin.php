@@ -160,22 +160,28 @@ class Shifter_Forms_Admin {
 		// collect variables
 		$shifter_form_target = get_post_meta( $post->ID, 'shifter_form_target', true );
 		$shifter_form_action = get_post_meta( $post->ID, 'shifter_form_action', true );
+		$shifter_form_confirmation = get_post_meta( $post->ID, 'shifter_form_confirmation', true );
 
 		?>
-	<div class="field-container">
+	<div class="field-container form-table">
 		<?php
 		// before main form hook.
 		do_action( 'shifter_form_admin_form_start' );
 		?>
 		<div class="field">
-			<label for="shifter_form_target">Form Target</label>
-			<small>Supports comma separated values.</small>
-			<input type="text" name="shifter_form_target" id="shifter_form_target" placeholder="For example: form.wpcf7-form, #gform_3" value="<?php echo $shifter_form_target; ?>"/>
+			<label for="shifter_form_target">Target</label>
+			<p class="description">Supports comma separated values.</p>
+			<input class="regular-text code" type="text" name="shifter_form_target" id="shifter_form_target" placeholder="For example: form.wpcf7-form, #gform_3" value="<?php echo $shifter_form_target; ?>"/>
 		</div>
 		<div class="field">
-			<label for="shifter_form_action">Form Action</label>
-			<small>URL to POST request on form submission.</small>
-			<input type="url" name="shifter_form_action" id="shifter_form_action" placeholder="For example: https://example.com/webhook " value="<?php echo $shifter_form_action; ?>"/>
+			<label for="shifter_form_action">Action URL / Outgoing Webhook</label>
+			<p class="description">URL to POST request on form submission.</p>
+			<input class="regular-text code" type="url" name="shifter_form_action" id="shifter_form_action" placeholder="For example: https://example.com/webhook " value="<?php echo $shifter_form_action; ?>"/>
+		</div>
+		<div class="field">
+			<label for="shifter_form_confirmation">Confirmation Page</label>
+			<p class="description">Redirect to this page on submit.</p>
+			<input class="regular-text code" type="text" name="shifter_form_confirmation" id="shifter_form_confirmation" placeholder="For example: /thank-you " value="<?php echo $shifter_form_confirmation; ?>"/>
 		</div>
 		<?php
 		// after main form hook.
@@ -206,6 +212,7 @@ class Shifter_Forms_Admin {
 				$html[]  = array(
 					'shifter_form_target' => get_post_meta( $post_id, 'shifter_form_target', true ),
 					'shifter_form_action' => get_post_meta( $post_id, 'shifter_form_action', true ),
+					'shifter_form_confirmation' => get_post_meta( $post_id, 'shifter_form_confirmation', true ),
 				);
 			}
 		}
@@ -232,10 +239,12 @@ class Shifter_Forms_Admin {
 		// get fields.
 		$shifter_form_target = isset( $_POST['shifter_form_target'] ) ? sanitize_text_field( $_POST['shifter_form_target'] ) : '';
 		$shifter_form_action  = isset( $_POST['shifter_form_action'] ) ? sanitize_text_field( $_POST['shifter_form_action'] ) : '';
+		$shifter_form_confirmation  = isset( $_POST['shifter_form_confirmation'] ) ? sanitize_text_field( $_POST['shifter_form_confirmation'] ) : '';
 
 		// update fields.
 		update_post_meta( $post_id, 'shifter_form_target', $shifter_form_target );
 		update_post_meta( $post_id, 'shifter_form_action', $shifter_form_action );
+		update_post_meta( $post_id, 'shifter_form_confirmation', $shifter_form_confirmation );
 
 		// form save hook.
 		// used so you can hook here and save additional post fields added

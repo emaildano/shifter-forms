@@ -57,7 +57,7 @@ class Shifter_Forms_Global {
 	 * @since 1.0.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/shifter-forms-global.css', array( 'jquery', 'micromodal' ), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/shifter-forms-global.css', array( 'jquery' ), $this->version, 'all' );
 	}
 
 	/**
@@ -84,10 +84,6 @@ class Shifter_Forms_Global {
 
 		wp_localize_script( $this->plugin_name, 'shifterForms', $shifter_forms_data );
 		wp_enqueue_script( $this->plugin_name );
-
-		// MicroModal.
-		wp_register_script('micromodal', 'https://cdn.jsdelivr.net/npm/micromodal/dist/micromodal.min.js', null, null, true);
-		wp_enqueue_script('micromodal');
 	}
 
 }
