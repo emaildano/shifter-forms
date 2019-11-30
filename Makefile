@@ -1,7 +1,6 @@
 DIRS := \
   admin \
 	api \
-	global \
 	includes \
 	languages \
 	public

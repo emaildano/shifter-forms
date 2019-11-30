@@ -60,19 +60,23 @@ class Shifter_Forms_Public {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Shifter_Forms_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Shifter_Forms_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+		$admin = new Shifter_Forms_Admin($this->plugin_name, $this->version);
+		$data = $admin->shifter_forms_output();
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/shifter-forms-public.css', array(), $this->version, 'all' );
+		$shifter_forms_data = array(
+			'data' => $data,
+		);
+
+		wp_register_script(
+			$this->plugin_name,
+			plugin_dir_url( __FILE__ ) . 'js/shifter-forms-public.js',
+			array( 'jquery' ),
+			$this->version,
+			true
+		);
+
+		wp_localize_script( $this->plugin_name, 'shifterForms', $shifter_forms_data );
+		wp_enqueue_script( $this->plugin_name );
 
 	}
 

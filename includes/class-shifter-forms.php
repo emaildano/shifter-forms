@@ -75,7 +75,6 @@ class Shifter_Forms {
 
 		$this->load_dependencies();
 		$this->set_locale();
-		$this->define_global_hooks();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
@@ -115,11 +114,6 @@ class Shifter_Forms {
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'global/class-shifter-forms-global.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-shifter-forms-admin.php';
 
 		/**
@@ -149,21 +143,6 @@ class Shifter_Forms {
 
 	}
 
-			/**
-			 * Register all of the hooks related to global functionality
-			 * of the plugin.
-			 *
-			 * @since  1.0.0
-			 * @access private
-			 */
-	private function define_global_hooks() {
-		$plugin_global = new Shifter_Forms_Global( $this->get_plugin_name(), $this->get_version() );
-
-		// Global Scripts and Styles.
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_global, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_global, 'enqueue_scripts' );
-	}
-
 	/**
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
@@ -183,7 +162,6 @@ class Shifter_Forms {
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_form_meta_boxes' );
 		$this->loader->add_action( 'save_post_shifter_forms', $plugin_admin, 'save_form' );
 		$this->loader->add_action( 'wp_head', $plugin_admin, 'shifter_forms_output' );
-		$this->loader->add_filter( 'wpcf7_load_js', $plugin_admin, '__return_false' );
 
 	}
 
