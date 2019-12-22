@@ -158,8 +158,8 @@ class Shifter_Forms_Admin {
 		wp_nonce_field( 'shifter_form_nonce', 'shifter_form_nonce_field' );
 
 		// collect variables
-		$shifter_form_target = get_post_meta( $post->ID, 'shifter_form_target', true );
-		$shifter_form_action = get_post_meta( $post->ID, 'shifter_form_action', true );
+		$shifter_form_target       = get_post_meta( $post->ID, 'shifter_form_target', true );
+		$shifter_form_action       = get_post_meta( $post->ID, 'shifter_form_action', true );
 		$shifter_form_confirmation = get_post_meta( $post->ID, 'shifter_form_confirmation', true );
 
 		?>
@@ -207,11 +207,11 @@ class Shifter_Forms_Admin {
 		$forms = $forms->get_posts();
 
 		if ( $forms ) {
-			foreach( $forms as $form ) {
+			foreach ( $forms as $form ) {
 				$post_id = $form->ID;
 				$html[]  = array(
-					'shifter_form_target' => get_post_meta( $post_id, 'shifter_form_target', true ),
-					'shifter_form_action' => get_post_meta( $post_id, 'shifter_form_action', true ),
+					'shifter_form_target'       => get_post_meta( $post_id, 'shifter_form_target', true ),
+					'shifter_form_action'       => get_post_meta( $post_id, 'shifter_form_action', true ),
 					'shifter_form_confirmation' => get_post_meta( $post_id, 'shifter_form_confirmation', true ),
 				);
 			}
@@ -237,9 +237,9 @@ class Shifter_Forms_Admin {
 		}
 
 		// get fields.
-		$shifter_form_target = isset( $_POST['shifter_form_target'] ) ? sanitize_text_field( $_POST['shifter_form_target'] ) : '';
-		$shifter_form_action  = isset( $_POST['shifter_form_action'] ) ? sanitize_text_field( $_POST['shifter_form_action'] ) : '';
-		$shifter_form_confirmation  = isset( $_POST['shifter_form_confirmation'] ) ? sanitize_text_field( $_POST['shifter_form_confirmation'] ) : '';
+		$shifter_form_target       = isset( $_POST['shifter_form_target'] ) ? sanitize_text_field( $_POST['shifter_form_target'] ) : '';
+		$shifter_form_action       = isset( $_POST['shifter_form_action'] ) ? sanitize_text_field( $_POST['shifter_form_action'] ) : '';
+		$shifter_form_confirmation = isset( $_POST['shifter_form_confirmation'] ) ? sanitize_text_field( $_POST['shifter_form_confirmation'] ) : '';
 
 		// update fields.
 		update_post_meta( $post_id, 'shifter_form_target', $shifter_form_target );

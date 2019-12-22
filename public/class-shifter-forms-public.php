@@ -60,8 +60,8 @@ class Shifter_Forms_Public {
 	 */
 	public function enqueue_styles() {
 
-		$admin = new Shifter_Forms_Admin($this->plugin_name, $this->version);
-		$data = $admin->shifter_forms_output();
+		$admin = new Shifter_Forms_Admin( $this->plugin_name, $this->version );
+		$data  = $admin->shifter_forms_output();
 
 		$shifter_forms_data = array(
 			'data' => $data,
